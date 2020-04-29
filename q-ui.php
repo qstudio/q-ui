@@ -1,54 +1,39 @@
 <?php
 
 /*
-* Plugin Name:     Q Brand Bar
+* Plugin Name:     Q Global UI
 * Plugin URI:      http://qstudio.us/
-* Description:     Global branding bar for all Greenheart Sites
-* Version:         1.3.2
+* Description:     Global UI Controller
+* Version:         1.0.0
 * Author:          Q Studio
 * Author URI:      http://qstudio.us
 * License:         GPL2
-* Class:           q_gh_brand_bar
-* Text Domain:     q-gh-brand-bar
+* Class:           q_ui
+* Text Domain:     q-ui
 * Domain Path:     languages/
-* GitHub Plugin URI: qstudio/q-gh-brand-bar
+* GitHub Plugin URI: qstudio/q-ui
 */
 
-use q\gh_brand_bar\core\helper as helper;
+// @TODO - merge in Q Consent, Q Snackbox, BS and other shared UI tools - and move some UI features out of Q??
+
+use q\ui\core\helper as helper;
 
 defined( 'ABSPATH' ) OR exit;
 
-if ( ! class_exists( 'q_gh_brand_bar' ) ) {
+if ( ! class_exists( 'q_ui' ) ) {
 
     // instatiate plugin via WP plugins_loaded - init was too late for CPT ##
-    add_action( 'plugins_loaded', array ( 'q_gh_brand_bar', 'get_instance' ), 5 );
+    add_action( 'plugins_loaded', array ( 'q_ui', 'get_instance' ), 5 );
 
-    class q_gh_brand_bar {
+    class q_ui {
 
         // Refers to a single instance of this class. ##
         private static $instance = null;
 
         // Plugin Settings
-        const version = '1.3.2';
-        // static $device = ''; // start false ##
+        const version = '1.0.0';
         static $debug = false;
-        // static $service = 'rest'; // soap OR rest ## @todo - move to admin selector, to allow plugin role to be switched via web UI
-        // static $load_count = 0;
-        const text_domain = 'q-brand-bar'; // for translation ##
-
-        // qpages - query variable - permalinks and titles ##
-        // static $qpages = array();
-
-        // store form, entry & response
-        // public static
-        //     $gf_entry = false,
-        //     $gf_form = false,
-        //     $response = false,
-        //     $email_routing_sent = false,
-        //     $email_entry_sent = false
-        // ;
-
-        // public static $schema = null;
+        const text_domain = 'q-ui'; // for translation ##
 
         // plugin properties ##
         public static $properties = false;
@@ -129,13 +114,10 @@ if ( ! class_exists( 'q_gh_brand_bar' ) ) {
 
 
 
-
-
-
         // the form for sites have to be 1-column-layout
         public function register_activation_hook() {
 
-            #add_option( 'q_device_configured' );
+            #add_option( 'q_ui_configured' );
 
             // flush rewrites ##
             #global $wp_rewrite;
@@ -146,7 +128,7 @@ if ( ! class_exists( 'q_gh_brand_bar' ) ) {
 
         public function register_deactivation_hook() {
 
-            #delete_option( 'q_device_configured' );
+            #delete_option( 'q_ui_configured' );
 
         }
 
